@@ -1,12 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { productsOnCart } from "./store/cartStore";
+import { increment, decrement, productsOnCart } from "./store/cartStore";
 import { BackLink } from "./backLink";
 
 
 export default function Cart(){
   const products = useSelector(productsOnCart)
+  const dispatch = useDispatch(increment)
   
+
+  function addCount(element){
+    dispatch(increment(element.element.id))
+  }
+  function subtractCount(element){
+    dispatch(decrement(element.element.id))
+
+  }
+
   return(
     <>
     <table>
@@ -19,15 +29,21 @@ export default function Cart(){
         </tr>
       </thead>
       <tbody>
-        {products.map(product=> 
-          <tr key={product.product.id}>
-            <td>{product.product.title}</td>
-            <td><img src={product.product.images[0]}/></td>
-            <td>{product.product.price}</td>
+        {products.map(element=> 
+          <tr key={element.id}>
+            <td>{element.title}</td>
+            <td><img src={element.images[0]}/></td>
+            <td>{element.price}</td>
             <td>
-              <button className="changeCount">-</button>
-              1
-              <button className="changeCount">+</button>
+              <button 
+                className="changeCount"
+                onClick={()=> {subtractCount({element})}}
+              >-</button>
+              {element.count}
+              <button
+                className="changeCount"
+                onClick={()=> {addCount({element})}}
+              >+</button>
             </td>
           </tr> 
         )}

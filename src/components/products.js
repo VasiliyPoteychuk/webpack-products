@@ -8,7 +8,6 @@ import { CartButton } from "./cartButton";
 export default function Products(){
    const products=useSelector(selectProducts);
    const status=useSelector(productsStatus);
- 
    const dispatch=useDispatch();
    
    useEffect(()=>{
