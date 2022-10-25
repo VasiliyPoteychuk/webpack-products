@@ -9,14 +9,22 @@ export const cartProductSlice = createSlice({
   },
   reducers: {
     addToCart(state, action){
-
-      state.items.push(action.payload)
+      
+       if (state.items.some(item=> item.id===action.payload.id)) {
+        state.items.filter(item=> item.id===action.payload.id).count += 1//додомать логику
+         state.items[action.payload.id-1].count += 1
+       }else{
+        state.items.push(action.payload)  
+       }
+          
+        
+      
     },
     increment(state, action){
-      state.items[action.payload-1].count += 1
+      state.items[action.payload.id-1].count += 1
     },
     decrement(state, action){
-      state.items[action.payload-1].count -= 1
+      state.items[action.payload.id-1].count -= 1
       state.items= state.items.filter(item=> item.count>0)
     },
   },

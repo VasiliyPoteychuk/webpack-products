@@ -8,6 +8,7 @@ export  function CartButton(product){
 
   function saveToCart(product){
     const item= {...product, count: 1}
+    
     dispatch(addToCart(item))  
   }
        

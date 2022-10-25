@@ -10,11 +10,10 @@ export default function Cart(){
   
 
   function addCount(element){
-    dispatch(increment(element.element.id))
+    dispatch(increment(element.element))
   }
   function subtractCount(element){
-    dispatch(decrement(element.element.id))
-
+    dispatch(decrement(element.element))
   }
 
   return(
